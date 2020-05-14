@@ -7,9 +7,21 @@ module.exports = {
 		if (!channel) return message.channel.send('Você precisa estar em um canal de voz primeiro!');
 		const serverQueue = message.client.queue.get(message.guild.id);
 		if (!serverQueue) return message.channel.send('Não tem nada tocando no momento.');
-		if (!args[0]) return message.channel.send(`O volume atual é: **${serverQueue.volume}%**`);
-		serverQueue.volume = args[0]; // eslint-disable-line
+		if (!args[0]) {
+			const embed = {
+				"title": 'Proerd ™ - Music',
+				"description": 'O volume atual é: **' + serverQueue.volume + '%**',
+				"color": "YELLOW",
+			};
+			message.channel.send({embed});
+		}
+		serverQueue.volume = args[0];
 		serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 5);
-		return message.channel.send(`Eu alterei o volume para: **${args[0]}%**`);
+		const embed = {
+			"title": 'Proerd ™ - Music',
+			"description": 'Eu alterei o volume para: **' + args[0] + '%**',
+			"color": "YELLOW",
+		};
+		message.channel.send({embed});
 	}
 };

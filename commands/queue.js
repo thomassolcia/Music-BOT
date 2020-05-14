@@ -5,12 +5,22 @@ module.exports = {
 	execute(message) {
 		const serverQueue = message.client.queue.get(message.guild.id);
 		if (!serverQueue) return message.channel.send('Não tem nada tocando.');
-		return message.channel.send(`
-__**Fila de Músicas:**__
-
-${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
-
-**Tocando Agora:** ${serverQueue.songs[0].title}
-		`);
+		init = '**-**';
+		const embed = {
+			"title": 'Proerd ™ - Music',
+			"description": '⏸ A música foi pausada pra você!',
+			"color": "YELLOW",
+			"fields": [
+                {
+                    "name": "**Fila de Músicas:**",
+                    "value": serverQueue.songs.map(song => init + song.title).join('\n')
+                },
+                {
+                    "name": "**Tocando Agora:**",
+                    "value":  serverQueue.songs[0].title
+                }
+                ]
+		};
+		return message.channel.send({embed});
 	}
 };

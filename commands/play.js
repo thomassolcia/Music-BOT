@@ -26,8 +26,14 @@ module.exports = {
 		if (serverQueue) {
 			serverQueue.songs.push(song);
 			console.log(serverQueue.songs);
-			return message.channel.send(`✅ **${song.title}** foi adicionada na fila!`);
-		}
+
+			const embed = {
+				"title": 'Proerd ™ - Music',
+				"description": '✅ **' + song.title + '** foi adicionada na fila!',
+				"color": "YELLOW",
+			  };
+			  return message.channel.send({embed});
+			}
 
 		const queueConstruct = {
 			textChannel: message.channel,
@@ -55,8 +61,14 @@ module.exports = {
 				})
 				.on('error', error => console.error(error));
 			dispatcher.setVolumeLogarithmic(queue.volume / 5);
-			queue.textChannel.send(`🎶 Tocando: **${song.title}**`);
-		};
+
+			const embed = {
+				"title": 'Proerd ™ - Music',
+				"description": '🎶 Tocando: **' + song.title + '**',
+				"color": "YELLOW",
+			  };
+			  queue.textChannel.send({embed});
+			}
 
 		try {
 			const connection = await channel.join();

@@ -7,8 +7,18 @@ module.exports = {
 		if (serverQueue && !serverQueue.playing) {
 			serverQueue.playing = true;
 			serverQueue.connection.dispatcher.resume();
-			return message.channel.send('▶ Voltando a tocar a música para você!');
+			const embed = {
+				"title": 'Proerd ™ - Music',
+				"description": '▶ Voltando a tocar a música para você!',
+				"color": "YELLOW",
+			  };
+			  return message.channel.send({embed});
 		}
-		return message.channel.send('Não tinha nada tocando antes aqui.');
+		const embed1 = {
+			"title": 'Proerd ™ - Music',
+			"description": 'Não tinha nada tocando antes aqui.',
+			"color": "YELLOW",
+		  };
+		  return message.channel.send({embed1});
 	}
 };

@@ -7,8 +7,19 @@ module.exports = {
 		if (serverQueue && serverQueue.playing) {
 			serverQueue.playing = false;
 			serverQueue.connection.dispatcher.pause();
-			return message.channel.send('⏸ A música foi pausada pra você!');
+			const embed = {
+				"title": 'Proerd ™ - Music',
+				"description": '⏸ A música foi pausada pra você!',
+				"color": "YELLOW",
+			};
+			return message.channel.send({embed});
+		}else{
+			const embed1 = {
+				"title": 'Proerd ™ - Music',
+				"description": 'Não tem nada tocando, você é esquizofrênico?',
+				"color": "YELLOW",
+			};
+		return message.channel.send({embed1});
 		}
-		return message.channel.send('Não tem nada tocando, você é esquizofrênico?');
 	}
 };

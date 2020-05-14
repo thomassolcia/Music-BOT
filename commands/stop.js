@@ -8,6 +8,12 @@ module.exports = {
 		const serverQueue = message.client.queue.get(message.guild.id);
 		if (!serverQueue) return message.channel.send('Não tem nada tocando no momento.');
 		serverQueue.songs = [];
-		serverQueue.connection.dispatcher.end('Músicas encerradas!');
+		const embed = {
+			"title": 'Proerd ™ - Music',
+			"description": 'Músicas encerradas!',
+			"color": "YELLOW",
+		};
+		message.channel.send({embed});
+		serverQueue.connection.dispatcher.end();
 	}
 };
