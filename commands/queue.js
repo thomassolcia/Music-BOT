@@ -1,14 +1,9 @@
-module.exports = {
-	name: 'queue',
-	description: 'Queue command.',
-	cooldown: 5,
-	execute(message) {
-		const serverQueue = message.client.queue.get(message.guild.id);
-		if (!serverQueue) return message.channel.send('Não tem nada tocando.');
-		init = '**-**';
+exports.run = (client, message, args) => {
+  const serverQueue = message.client.queue.get(message.guild.id);
+  if (!serverQueue) return message.channel.send("There is nothing playing.");
+  init = '**-**';
 		const embed = {
 			"title": 'Proerd ™ - Music',
-			"description": '⏸ A música foi pausada pra você!',
 			"color": "YELLOW",
 			"fields": [
                 {
@@ -22,5 +17,4 @@ module.exports = {
                 ]
 		};
 		return message.channel.send({embed});
-	}
 };
