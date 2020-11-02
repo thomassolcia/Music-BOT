@@ -31,7 +31,7 @@ exports.run = async (client, message, args) => {
           } else {
             init = 0;
             var tEstimado = 0;
-            for (var i = 0; i < queue.songs.length-1; i++) {
+            for (var i = 0; i < queue.songs.length - 1; i++) {
               tEstimado += queue.songs[i].seconds;
             }
             var duracao = `${result.videos[0].duration}`;
@@ -77,6 +77,10 @@ exports.run = async (client, message, args) => {
       return message.reply(
         "você precisa estar em um canal de voz para reproduzir uma música!"
       );
+    } else {
+      message.member.voice.channel.join().then(conn => {
+        conn.voice.setDeaf(true);
+      })
     }
 
     if (!queue) {
