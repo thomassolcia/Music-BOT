@@ -1,3 +1,1 @@
-# Music-BOT [Unified]
-
-[Unified]: https://github.com/thomassolcia/Discord-BOT
+# A music bot for discord servers
