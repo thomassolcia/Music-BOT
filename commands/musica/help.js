@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 exports.run = (client, message, args) => {
     const embed = new Discord.MessageEmbed()
+        .setColor("ORANGE")
         .setTitle('PMusic - Help')
         .setDescription(`**[PT-BR] 🇧🇷**\n**p.clear** - Limpa as música da fila (se houver)
 **p.next** ou **p.skip** - Pula para a próxima música
@@ -19,7 +20,7 @@ exports.run = (client, message, args) => {
 **p.search** ou **p.src** - Search a song on youtube, you choose which will be played
 **p.stop** - Finalize the songs
 **p.volume** - Controls the volume of songs`)
-.setFooter(`ℹ️ Qualquer problema contatar o dev - awoone#0001
+        .setFooter(`ℹ️ Qualquer problema contatar o dev - awoone#0001
 ℹ️ Any problem contact the dev - awoone#0001`)
     message.channel.send(embed)
 };
