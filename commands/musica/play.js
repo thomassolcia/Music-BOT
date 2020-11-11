@@ -4,9 +4,13 @@ const Discord = require('discord.js');
 const db = require('quick.db');
 
 exports.run = async (client, message, args) => {
-  let lang = 0;
+  let lang = 1;
   lang = db.get(`guild_${message.guild.id}_lang_${lang}`)
-  if (lang == 1) {
+  if (lang == null) {
+    const embed = new Discord.MessageEmbed()
+      .setDescription(`Configure o idioma padrão: \`p.lang pt\` ou \`p.lang en\`\nSet the default language: \`p.lang pt\` or \`p.lang en\``)
+    message.channel.send(embed)
+  } else if (lang == 1) {
     if (message.content.includes('playlist') || message.content.includes('list') || message.content.includes('index')) {
       return message.reply('Playlists não estão disponíveis para reprodução no momento.')
     }
@@ -78,9 +82,14 @@ exports.run = async (client, message, args) => {
         }
       }
       if (!message.member.voice.channel) {
+        queue.songs = [];
+        client.queues.set(message.guild.id, queue);
+        message.react('🛑');
+        queue.dispatcher.end();
         return message.reply(
           "você precisa estar em um canal de voz para reproduzir uma música!"
         );
+
       } else {
         message.member.voice.channel.join().then(conn => {
           conn.voice.setDeaf(true);
@@ -104,7 +113,7 @@ exports.run = async (client, message, args) => {
         })
       }
       queue.dispatcher = await queue.connection.play(
-        await ytdl(song.url, { bitrate: 96000, quality: 'highestaudio', highWaterMark: 1 << 30, filter: "audioonly" }),
+        await ytdl(song.url, { quality: "highestaudio", highWaterMark: 1 << 50, filter: "audioonly" }),
         {
           type: "opus",
         }
@@ -187,9 +196,11 @@ exports.run = async (client, message, args) => {
         }
       }
       if (!message.member.voice.channel) {
-        return message.reply(
-          "you need to be on a voice channel to play a song!"
-        );
+        queue.songs = [];
+        client.queues.set(message.guild.id, queue);
+        message.react('🛑');
+        queue.dispatcher.end();
+        return message.reply("you need to be on a voice channel to play a song!");
       } else {
         message.member.voice.channel.join().then(conn => {
           conn.voice.setDeaf(true);
@@ -213,7 +224,7 @@ exports.run = async (client, message, args) => {
         })
       }
       queue.dispatcher = await queue.connection.play(
-        await ytdl(song.url, { bitrate: 96000, quality: 'highestaudio', highWaterMark: 1 << 30, filter: "audioonly" }),
+        await ytdl(song.url, { quality: "highestaudio", highWaterMark: 1 << 50, filter: "audioonly" }),
         {
           type: "opus",
         }

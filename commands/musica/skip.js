@@ -1,8 +1,12 @@
 const db = require('quick.db');
 exports.run = (client, message, args, ops) => {
-    let lang = 0;
+    let lang = 1;
     lang = db.get(`guild_${message.guild.id}_lang_${lang}`)
-    if (lang == 1) {
+    if (lang == null) {
+        const embed = new Discord.MessageEmbed()
+            .setDescription(`Configure o idioma padrão: \`p.lang pt\` ou \`p.lang en\`\nSet the default language: \`p.lang pt\` or \`p.lang en\``)
+        message.channel.send(embed)
+    } else if (lang == 1) {
         const queue = client.queues.get(message.guild.id);
         if (!queue) {
             return message.reply("não existe nenhuma música sendo reproduzida");

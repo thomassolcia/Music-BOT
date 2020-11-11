@@ -3,10 +3,14 @@ const ytdl = require("ytdl-core-discord");
 const Discord = require('discord.js');
 const db = require('quick.db');
 exports.run = async (client, message, args) => {
-    let lang = 0;
+    let lang = 1;
     lang = db.get(`guild_${message.guild.id}_lang_${lang}`)
 
-    if (lang == 1) {
+    if (lang == null) {
+        const embed = new Discord.MessageEmbed()
+            .setDescription(`Configure o idioma padrão: \`p.lang pt\` ou \`p.lang en\`\nSet the default language: \`p.lang pt\` or \`p.lang en\``)
+        message.channel.send(embed)
+    } else if (lang == 1) {
         const nameUser = message.author.id;
         const s = args.join(" ");
         try {
@@ -320,7 +324,7 @@ exports.run = async (client, message, args) => {
                 })
             }
             queue.dispatcher = await queue.connection.play(
-                await ytdl(song.url, { bitrate: 96000, quality: 'highestaudio', highWaterMark: 1 << 30, filter: "audioonly" }),
+                await ytdl(song.url, { quality: "highestaudio", highWaterMark: 1 << 50, filter: "audioonly" }),
                 {
                     type: "opus",
                 }
@@ -645,7 +649,7 @@ exports.run = async (client, message, args) => {
                 })
             }
             queue.dispatcher = await queue.connection.play(
-                await ytdl(song.url, { bitrate: 96000, quality: 'highestaudio', highWaterMark: 1 << 30, filter: "audioonly" }),
+                await ytdl(song.url, { quality: "highestaudio", highWaterMark: 1 << 50, filter: "audioonly" }),
                 {
                     type: "opus",
                 }
