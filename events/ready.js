@@ -1,6 +1,7 @@
+const db = require('quick.db');
+let lang = 1;
 module.exports = async client => {
     console.log('\n     [Pronto para utilização]      \n')
-    client.guilds.cache.size
     setInterval(() => {
         var quotes = ['p.help', `${client.guilds.cache.size} servidores`]
         client.user.setActivity(
